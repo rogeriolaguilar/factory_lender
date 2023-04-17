@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: %i[ show update destroy ]
+  before_action :set_invoice, only: %i[show update destroy]
 
   # GET /invoices
   def index
@@ -39,13 +41,14 @@ class InvoicesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_invoice
-      @invoice = Invoice.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def invoice_params
-      params.require(:invoice).permit(:external_id, :amount, :due_date, :status, :client_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_invoice
+    @invoice = Invoice.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def invoice_params
+    params.require(:invoice).permit(:external_id, :amount, :due_date, :status, :client_id)
+  end
 end
