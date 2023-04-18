@@ -21,4 +21,5 @@ class Invoice < ApplicationRecord
   validates :amount, numericality: true
 
   belongs_to :client
+  has_one :purchase
 end

@@ -4,9 +4,9 @@ class PurchasesController < ApplicationController
   before_action :set_purchase, only: %i[show update destroy]
 
   def index
-    @purchases = Purchase.all
+    purchase = Invoice.find_by(external_id: params[:invoice_external_id]).purchase
 
-    render json: @purchases
+    render json: [purchase]
   end
 
   def show
@@ -31,7 +31,7 @@ class PurchasesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_purchase
-    @purchase = Purchase.find(params[:id])
+    @purchase = Purchase.find_by(external_id: params[:external_id])
   end
 
   # Only allow a list of trusted parameters through.
