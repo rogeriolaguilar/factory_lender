@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: %i[show update destroy]
+  before_action :set_invoice_by_client, only: %i[show update destroy]
 
   def index
     invoices = client.invoices
@@ -24,6 +24,12 @@ class InvoicesController < ApplicationController
     render json: @invoice
   end
 
+  def change_status
+    new_invoice = InvoiceActions.change_invoice_status(invoice, params[:status])
+    new_invoice.save!
+    render json: new_invoice
+  end
+
   def destroy
     @invoice.destroy
   end
@@ -34,8 +40,12 @@ class InvoicesController < ApplicationController
     @client ||= Client.find_by!(external_id: params[:client_external_id])
   end
 
-  def set_invoice
+  def set_invoice_by_client
     @invoice = client.invoices.find_by(external_id: params[:external_id])
+  end
+
+  def invoice
+    @invoice ||= Invoice.find_by!(external_id: params[:external_id])
   end
 
   def permit_params

@@ -29,6 +29,7 @@ class PurchasesController < ApplicationController
   def invoice
     @invoice ||= Invoice.find_by(external_id: params[:invoice_external_id])
   end
+
   def set_purchase
     @purchase = Purchase.find_by(external_id: params[:external_id])
   end

@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   end
   resources :invoices, param: :external_id, only: [] do
     resources :purchases, param: :external_id, only: %i[index]
+    member do
+      put 'change_status'
+    end
   end
 
   resources :purchases, param: :external_id, only: %i[show create destroy]

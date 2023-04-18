@@ -10,16 +10,21 @@ module InvoiceActions
   end
 
   def self.update_invoice(invoice, params)
-    if params[:status]
+    invoice.assign_attributes(params)
+    invoice
+  end
+
+  def self.change_invoice_status(invoice, status)
+    if status
       next_permitted_status = Invoice::NEXT_STATUS_MAP[invoice.status]
 
-      unless next_permitted_status.include?(params[:status])
+      unless next_permitted_status.include?(status)
         raise Errors::WrongInvoiceStatusError,
               "Invalid status. Current status: #{invoice.status}. Next permitted status are: #{next_permitted_status}"
       end
     end
 
-    invoice.assign_attributes(params)
+    invoice.status = status
     invoice
   end
 end

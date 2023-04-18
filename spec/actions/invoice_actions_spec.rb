@@ -40,37 +40,44 @@ RSpec.describe InvoiceActions do
       it { expect(subject.status).to eq(invoice.status) }
       it { expect(subject.client).to eq(invoice.client) }
     end
+  end
+
+  describe 'change_invoice_status' do
+    subject do
+      InvoiceActions.change_invoice_status(invoice, status)
+    end
+    let(:invoice) { build(:invoice) }
 
     context 'change status' do
       let(:invoice) { build(:invoice, status: initial_status) }
 
       context 'from created to approved' do
         let(:initial_status) { Invoice::STATUS_CREATED }
-        let(:params) { { status: Invoice::STATUS_APPROVED } }
+        let(:status) { Invoice::STATUS_APPROVED }
         it { expect(subject.status).to eq(Invoice::STATUS_APPROVED) }
       end
 
       context 'from created to rejected' do
         let(:initial_status) { Invoice::STATUS_CREATED }
-        let(:params) { { status: Invoice::STATUS_REJECTED } }
+        let(:status) { Invoice::STATUS_REJECTED }
         it { expect(subject.status).to eq(Invoice::STATUS_REJECTED) }
       end
 
       context 'from created to approved' do
         let(:initial_status) { Invoice::STATUS_CREATED }
-        let(:params) { { status: Invoice::STATUS_APPROVED } }
+        let(:status) { Invoice::STATUS_APPROVED }
         it { expect(subject.status).to eq(Invoice::STATUS_APPROVED) }
       end
 
       context 'from created to approved' do
         let(:initial_status) { Invoice::STATUS_CREATED }
-        let(:params) { { status: Invoice::STATUS_CLOSED } }
+        let(:status) { Invoice::STATUS_CLOSED }
         it { expect { subject }.to raise_error(Errors::WrongInvoiceStatusError) }
       end
 
       context 'from closed to approved' do
         let(:initial_status) { Invoice::STATUS_CLOSED }
-        let(:params) { { status: Invoice::STATUS_APPROVED } }
+        let(:status) { Invoice::STATUS_APPROVED }
         it { expect { subject }.to raise_error(Errors::WrongInvoiceStatusError) }
       end
     end
