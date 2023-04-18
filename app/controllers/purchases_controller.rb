@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PurchasesController < ApplicationController
-  before_action :set_purchase, only: %i[ show update destroy ]
+  before_action :set_purchase, only: %i[show update destroy]
 
   def index
     @purchases = Purchase.all
@@ -26,13 +28,14 @@ class PurchasesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_purchase
-      @purchase = Purchase.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def purchase_params
-      params.require(:purchase).permit(:external_id, :amount, :invoice_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_purchase
+    @purchase = Purchase.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def purchase_params
+    params.require(:purchase).permit(:external_id, :amount, :invoice_id)
+  end
 end

@@ -20,7 +20,7 @@ class InvoicesController < ApplicationController
 
   def update
     new_invoice = InvoiceActions.update_invoice(@invoice, permit_params)
-    new_invoice.save! 
+    new_invoice.save!
     render json: @invoice
   end
 
