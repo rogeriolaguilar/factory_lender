@@ -13,7 +13,7 @@ RSpec.describe '/clients', type: :request do
   end
 
   let(:client) do
-    Client.create!({ name: 'Name', external_id: SecureRandom.uuid })
+    create(:client, name: 'Name')
   end
 
   describe 'GET /show' do

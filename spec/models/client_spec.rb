@@ -4,8 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Client, type: :model do
   subject do
-    Client.new(name: 'Anything',
-               external_id: SecureRandom.uuid)
+    build(:client)
   end
 
   it 'is valid with valid attributes' do
