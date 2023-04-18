@@ -2,22 +2,17 @@
 
 class ClientsController < ApplicationController
   before_action :set_client, only: %i[show update destroy]
+  before_action :permit_params, only: %i[create update]
+  rescue_from ActiveModel::ForbiddenAttributesError, with: :handle_errors
 
-  # GET /clients
-  def index
-    @clients = Client.all
-
-    render json: @clients
-  end
-
-  # GET /clients/1
+  # GET /clients/:external-id
   def show
     render json: @client
   end
 
   # POST /clients
   def create
-    @client = Client.new(client_params)
+    @client = Client.new(permit_params.merge(external_id: SecureRandom.uuid))
 
     if @client.save
       render json: @client, status: :created, location: @client
@@ -26,29 +21,33 @@ class ClientsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /clients/1
+  # PATCH/PUT /clients/:external_id
   def update
-    if @client.update(client_params)
+    if permit_params.empty?
+      handle_errors
+    elsif @client.update!(permit_params)
       render json: @client
     else
       render json: @client.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /clients/1
+  # DELETE /clients/:external_id
   def destroy
     @client.destroy
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_client
-    @client = Client.find(params[:id])
+    @client = Client.find_by(external_id: params[:external_id])
   end
 
-  # Only allow a list of trusted parameters through.
-  def client_params
-    params.require(:client).permit(:name, :external_id)
+  def permit_params
+    params.require(:client).permit(:name)
+  end
+
+  def handle_errors
+    render json: { "errors": ['invalid params'] }, status: :unprocessable_entity
   end
 end

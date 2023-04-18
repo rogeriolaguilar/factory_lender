@@ -49,3 +49,5 @@ group :development do
   # gem "spring"
   gem 'rubocop', require: false
 end
+
+gem 'byebug', '~> 11.1', groups: %i[development test]

@@ -1,0 +1,7 @@
+Documentation:
+  Enabled: false
+AllCops:
+  Exclude:
+    - bin/bundle
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
