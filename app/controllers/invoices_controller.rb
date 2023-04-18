@@ -19,11 +19,9 @@ class InvoicesController < ApplicationController
   end
 
   def update
-    if @invoice.update(permit_params)
-      render json: @invoice
-    else
-      render json: @invoice.errors, status: :unprocessable_entity
-    end
+    new_invoice = InvoiceActions.update_invoice(@invoice, permit_params)
+    new_invoice.save! 
+    render json: @invoice
   end
 
   def destroy

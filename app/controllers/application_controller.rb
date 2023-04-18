@@ -17,7 +17,11 @@ class ApplicationController < ActionController::API
     render_error(error, :unprocessable_entity)
   end
 
+  rescue_from Errors::WrongInvoiceStatusError do |error|
+    render_error(error, :unprocessable_entity)
+  end
+
   def render_error(error, status)
-    render json: {errors: [error&.message] }, status: status
+    render json: { errors: [error&.message] }, status:
   end
 end

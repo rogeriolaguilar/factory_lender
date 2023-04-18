@@ -17,9 +17,8 @@ RSpec.describe '/clients', type: :request do
 
   let(:client_expected_body) do
     client.as_json.symbolize_keys
-           .except(:id)
+          .except(:id)
   end
-
 
   describe 'GET /show' do
     it 'renders a successful response' do
@@ -105,7 +104,7 @@ RSpec.describe '/clients', type: :request do
     context 'with any parameters' do
       it 'renders a JSON response with errors for the client' do
         patch client_url,
-              params: { }, as: :json
+              params: {}, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
