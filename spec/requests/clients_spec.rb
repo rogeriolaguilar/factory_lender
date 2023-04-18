@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require_relative '../helpers/request_helper'
 
 RSpec.describe '/clients', type: :request do
   let(:valid_attributes) do
