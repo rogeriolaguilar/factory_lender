@@ -13,13 +13,6 @@ class PurchasesController < ApplicationController
     render json: @purchase
   end
 
-  def create
-    purchase = PurchaseActions.build_purchase(invoice)
-
-    purchase.save!
-    render json: @purchase, status: :created, location: @purchase
-  end
-
   def destroy
     @purchase.destroy
   end

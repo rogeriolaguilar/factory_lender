@@ -27,41 +27,6 @@ RSpec.describe '/purchases', type: :request do
     end
   end
 
-  describe 'POST /create' do
-    let(:purchase_url) { "/purchases/#{purchase.external_id}" }
-    context 'with valid parameters' do
-      # it 'creates a new Purchase' do
-      #   expect do
-      #     post purchases_url,
-      #          params: { purchase: valid_attributes }, as: :json
-      #   end.to change(Purchase, :count).by(1)
-      # end
-
-      # it 'renders a JSON response with the new purchase' do
-      #   post purchases_url,
-      #        params: { purchase: valid_attributes }, as: :json
-      #   expect(response).to have_http_status(:created)
-      #   expect(response.content_type).to match(a_string_including('application/json'))
-      # end
-    end
-
-    context 'with invalid parameters' do
-      # it 'does not create a new Purchase' do
-      #   expect do
-      #     post purchases_url,
-      #          params: { purchase: invalid_attributes }, as: :json
-      #   end.to change(Purchase, :count).by(0)
-      # end
-
-      # it 'renders a JSON response with errors for the new purchase' do
-      #   post purchases_url,
-      #        params: { purchase: invalid_attributes }, as: :json
-      #   expect(response).to have_http_status(:unprocessable_entity)
-      #   expect(response.content_type).to match(a_string_including('application/json'))
-      # end
-    end
-  end
-
   describe 'DELETE /destroy' do
     let(:purchase_url) { "/purchases/#{purchase.external_id}" }
     it 'destroys the requested purchase' do

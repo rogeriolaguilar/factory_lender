@@ -15,10 +15,6 @@ RSpec.describe PurchasesController, type: :routing do
       expect(get: "/purchases/#{external_id}").to route_to('purchases#show', { external_id: })
     end
 
-    it 'routes to #create' do
-      expect(post: '/purchases').to route_to('purchases#create')
-    end
-
     it 'routes to #destroy' do
       expect(delete: "/purchases/#{external_id}").to route_to('purchases#destroy', { external_id: })
     end
