@@ -77,7 +77,7 @@ RSpec.describe '/clients', type: :request do
               params: { client: new_attributes }, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including('application/json'))
-        expect(parsed_body(body)).to include(new_attributes)
+        expect(parsed_body(response)).to include(new_attributes)
       end
     end
 
@@ -87,7 +87,7 @@ RSpec.describe '/clients', type: :request do
               params: { client: invalid_attributes }, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
-        expect(parsed_body(body)).to eq(errors: ['invalid params'])
+        expect(parsed_body(response)).to eq(errors: ['invalid params'])
       end
     end
   end

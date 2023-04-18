@@ -4,9 +4,8 @@ class InvoicesController < ApplicationController
   before_action :set_invoice, only: %i[show update destroy]
 
   def index
-    @invoices = Invoice.all
-
-    render json: @invoices
+    invoices = client.invoices
+    render json: invoices
   end
 
   def show
@@ -14,17 +13,17 @@ class InvoicesController < ApplicationController
   end
 
   def create
-    @invoice = Invoice.new(invoice_params)
+    invoice = InvoiceActions.build_invoice(permit_params, client)
 
-    if @invoice.save
-      render json: @invoice, status: :created, location: @invoice
+    if invoice.save
+      render json: invoice, status: :created
     else
-      render json: @invoice.errors, status: :unprocessable_entity
+      render json: invoice.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    if @invoice.update(invoice_params)
+    if @invoice.update(permit_params)
       render json: @invoice
     else
       render json: @invoice.errors, status: :unprocessable_entity
@@ -37,11 +36,15 @@ class InvoicesController < ApplicationController
 
   private
 
-  def set_invoice
-    @invoice = Invoice.find(params[:id])
+  def client
+    @client ||= Client.find_by!(external_id: params[:client_external_id])
   end
 
-  def invoice_params
-    params.require(:invoice).permit(:external_id, :amount, :due_date, :status, :client_id)
+  def set_invoice
+    @invoice = client.invoices.find_by(external_id: params[:external_id])
+  end
+
+  def permit_params
+    params.require(:invoice).permit(:amount, :due_date, :status)
   end
 end

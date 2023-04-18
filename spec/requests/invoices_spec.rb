@@ -3,62 +3,71 @@
 require 'rails_helper'
 
 RSpec.describe '/invoices', type: :request do
-  let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
-  end
-
-  let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
-  end
-
-  let(:valid_headers) do
-    {}
+  let!(:invoice) { create(:invoice) }
+  let(:client_external_id) { invoice.client.external_id }
+  let(:expected_invoice_body) do
+    invoice.as_json.symbolize_keys
+           .except(:id)
+           .merge({ client_id: client_external_id, amount: invoice.amount.to_f })
   end
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      Invoice.create! valid_attributes
-      get invoices_url, headers: valid_headers, as: :json
+      get "/clients/#{client_external_id}/invoices", as: :json
       expect(response).to be_successful
+      expect(parsed_body(response)).to eq([expected_invoice_body])
+    end
+
+    it 'renders not found if client do not exists' do
+      get "/clients/#{SecureRandom.uuid}/invoices", as: :json
+      expect(response).to have_http_status(:not_found)
     end
   end
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      invoice = Invoice.create! valid_attributes
-      get invoice_url(invoice), as: :json
+      get "/clients/#{client_external_id}/invoices/#{invoice.external_id}", as: :json
       expect(response).to be_successful
+      expect(parsed_body(response)).to eq(expected_invoice_body)
     end
   end
 
   describe 'POST /create' do
+    let(:create_attributes) do
+      { status: Invoice::STATUS_CREATED,
+        amount: 1000.0,
+        due_date: '2030-02-03T00:00:00.000Z' }
+    end
+
     context 'with valid parameters' do
       it 'creates a new Invoice' do
         expect do
-          post invoices_url,
-               params: { invoice: valid_attributes }, headers: valid_headers, as: :json
+          post "/clients/#{client_external_id}/invoices", params: { invoice: create_attributes }, as: :json
         end.to change(Invoice, :count).by(1)
       end
 
       it 'renders a JSON response with the new invoice' do
-        post invoices_url,
-             params: { invoice: valid_attributes }, headers: valid_headers, as: :json
+        post "/clients/#{client_external_id}/invoices", params: { invoice: create_attributes }, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
+        expect(parsed_body(response)).to include(create_attributes)
       end
     end
 
     context 'with invalid parameters' do
+      let(:post_url) { "/clients/#{client_external_id}/invoices" }
+      let(:invalid_params) do
+        { amount: '2020-12-12' }
+      end
       it 'does not create a new Invoice' do
         expect do
-          post invoices_url,
-               params: { invoice: invalid_attributes }, as: :json
+          post post_url, params: { invoice: invalid_params }, as: :json
         end.to change(Invoice, :count).by(0)
       end
 
       it 'renders a JSON response with errors for the new invoice' do
-        post invoices_url,
-             params: { invoice: invalid_attributes }, headers: valid_headers, as: :json
+        post post_url,
+             params: { invoice: invalid_params }, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -66,23 +75,23 @@ RSpec.describe '/invoices', type: :request do
   end
 
   describe 'PATCH /update' do
+    let(:url) { "/clients/#{client_external_id}/invoices/#{invoice.external_id}" }
     context 'with valid parameters' do
       let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
+        { amount: 987.12, due_date: DateTime.tomorrow }
       end
 
       it 'updates the requested invoice' do
-        invoice = Invoice.create! valid_attributes
-        patch invoice_url(invoice),
-              params: { invoice: new_attributes }, headers: valid_headers, as: :json
+        patch url,
+              params: { invoice: new_attributes }, as: :json
         invoice.reload
-        skip('Add assertions for updated state')
+        expect(invoice.amount).to eq(new_attributes[:amount])
+        expect(invoice.due_date).to eq(new_attributes[:due_date])
       end
 
       it 'renders a JSON response with the invoice' do
-        invoice = Invoice.create! valid_attributes
-        patch invoice_url(invoice),
-              params: { invoice: new_attributes }, headers: valid_headers, as: :json
+        patch url,
+              params: { invoice: new_attributes }, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -90,9 +99,9 @@ RSpec.describe '/invoices', type: :request do
 
     context 'with invalid parameters' do
       it 'renders a JSON response with errors for the invoice' do
-        invoice = Invoice.create! valid_attributes
-        patch invoice_url(invoice),
-              params: { invoice: invalid_attributes }, headers: valid_headers, as: :json
+        invalid_attributes = { amount: '2020-12-12' }
+        patch url,
+              params: { invoice: invalid_attributes }, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -101,9 +110,8 @@ RSpec.describe '/invoices', type: :request do
 
   describe 'DELETE /destroy' do
     it 'destroys the requested invoice' do
-      invoice = Invoice.create! valid_attributes
       expect do
-        delete invoice_url(invoice), headers: valid_headers, as: :json
+        delete "/clients/#{client_external_id}/invoices/#{invoice.external_id}", as: :json
       end.to change(Invoice, :count).by(-1)
     end
   end

@@ -2,4 +2,5 @@
 
 class Client < ApplicationRecord
   validates :name, :external_id, presence: true
+  has_many :invoices
 end
