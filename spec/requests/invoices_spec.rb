@@ -110,7 +110,7 @@ RSpec.describe '/invoices', type: :request do
 
   describe 'PUT /change_status' do
     let!(:invoice) { create(:invoice, status: Invoice::STATUS_CREATED) }
-    context 'with invalid next status' do
+    context 'with valid next status' do
       it 'renders a JSON response with errors for the invoice' do
         put "/invoices/#{invoice.external_id}/change_status",
             params: { status: Invoice::STATUS_APPROVED }, as: :json
@@ -118,6 +118,18 @@ RSpec.describe '/invoices', type: :request do
         expect(response.content_type).to match(a_string_including('application/json'))
         invoice.reload
         expect(invoice.status).to eq(Invoice::STATUS_APPROVED)
+      end
+    end
+
+    context 'when changing the status to closed' do
+      let!(:invoice) { create(:invoice, status: Invoice::STATUS_PURCHASED) }
+      it 'renders a JSON response with errors for the invoice' do
+        put "/invoices/#{invoice.external_id}/change_status",
+            params: { status: Invoice::STATUS_CLOSED }, as: :json
+        expect(response).to have_http_status(:ok)
+        expect(response.content_type).to match(a_string_including('application/json'))
+        invoice.reload
+        expect(invoice.purchase).to be_present
       end
     end
 

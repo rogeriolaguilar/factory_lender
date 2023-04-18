@@ -13,6 +13,7 @@ RSpec.describe PurchaseActions do
 
       it { expect(subject.amount).to be <= invoice.amount }
       it { expect(subject.external_id).to be_present }
+      it { expect(subject.invoice).to eq(invoice) }
     end
   end
 end
