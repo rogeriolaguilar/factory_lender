@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :clients, param: :external_id, only: %i[show create update destroy] do
     resources :invoices, param: :external_id
   end
-  resources :invoices, only: [] do
+  resources :invoices, param: :external_id, only: [] do
     resources :purchases, param: :external_id, only: %i[index]
   end
 
