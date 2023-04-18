@@ -3,11 +3,14 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: %i[show update destroy]
   before_action :permit_params, only: %i[create update]
-  rescue_from ActiveModel::ForbiddenAttributesError, with: :handle_errors
 
   # GET /clients/:external-id
   def show
-    render json: @client
+    if @client
+      render json: @client
+    else
+      head :not_found
+    end
   end
 
   # POST /clients

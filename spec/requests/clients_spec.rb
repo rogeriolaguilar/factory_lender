@@ -8,17 +8,30 @@ RSpec.describe '/clients', type: :request do
   end
 
   let(:invalid_attributes) do
-    { random: 'Foo' }
+    { name: '' }
   end
 
   let(:client) do
     create(:client, name: 'Name')
   end
 
+  let(:client_expected_body) do
+    client.as_json.symbolize_keys
+           .except(:id)
+  end
+
+
   describe 'GET /show' do
     it 'renders a successful response' do
       get "/clients/#{client.external_id}", as: :json
       expect(response).to be_successful
+      expect(parsed_body(response)).to eq(client_expected_body)
+    end
+
+    it 'renders not found' do
+      get "/clients/#{SecureRandom.uuid}", as: :json
+      expect(response).to have_http_status(:not_found)
+      expect(response.body).to be_empty
     end
   end
 
@@ -87,7 +100,15 @@ RSpec.describe '/clients', type: :request do
               params: { client: invalid_attributes }, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
-        expect(parsed_body(response)).to eq(errors: ['invalid params'])
+      end
+    end
+
+    context 'with any parameters' do
+      it 'renders a JSON response with errors for the client' do
+        patch client_url,
+              params: { }, as: :json
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
   end
