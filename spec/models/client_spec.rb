@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Client, type: :model do
   subject do
-    build(:client)
+    build_stubbed(:client)
   end
 
   it 'is valid with valid attributes' do

@@ -9,7 +9,7 @@ RSpec.describe InvoiceActions do
     end
 
     context 'valid params' do
-      let(:client) { build(:client) }
+      let(:client) { build_stubbed(:client) }
       let(:params) do
         { amount: 10.1,
           due_date: '2023-03-03T01:10:01' }
@@ -27,7 +27,7 @@ RSpec.describe InvoiceActions do
     subject do
       InvoiceActions.update_invoice(invoice, params)
     end
-    let(:invoice) { build(:invoice) }
+    let(:invoice) { build_stubbed(:invoice) }
 
     context 'valid params' do
       let(:params) do
@@ -46,10 +46,10 @@ RSpec.describe InvoiceActions do
     subject do
       InvoiceActions.change_invoice_status(invoice, status)
     end
-    let(:invoice) { build(:invoice) }
+    let(:invoice) { build_stubbed(:invoice) }
 
     context 'change status' do
-      let(:invoice) { build(:invoice, status: initial_status) }
+      let(:invoice) { build_stubbed(:invoice, status: initial_status) }
 
       context 'from created to approved' do
         let(:initial_status) { Invoice::STATUS_CREATED }

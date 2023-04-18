@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Purchase, type: :model do
   subject do
-    build(:purchase)
+    build_stubbed(:purchase)
   end
 
   context 'attributes validation' do
