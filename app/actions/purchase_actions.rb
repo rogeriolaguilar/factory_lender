@@ -2,12 +2,9 @@
 
 module PurchaseActions
   DAILY_FEE = 0.1
-  def self.build_purchase(invoice, params)
+  def self.build_purchase(invoice)
     days_until_due_date = invoice.due_date.to_date - Date.today
-    amount = invoice.amount * (1 + DAILY_FEE)**days_until_due_date # Check real formula
-    Purchase.new(params.merge(
-                   { external_id: SecureRandom.uuid,
-                     amount: }
-                 ))
+    amount = invoice.amount * (1 - DAILY_FEE)**days_until_due_date # TODO: Check real formula
+    Purchase.new({ external_id: SecureRandom.uuid, amount: })
   end
 end
