@@ -31,7 +31,6 @@ RSpec.describe '/clients', type: :request do
     it 'renders not found' do
       get "/clients/#{SecureRandom.uuid}", as: :json
       expect(response).to have_http_status(:not_found)
-      expect(response.body).to be_empty
     end
   end
 

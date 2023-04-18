@@ -4,27 +4,17 @@ class ClientsController < ApplicationController
   before_action :set_client, only: %i[show update destroy]
   before_action :permit_params, only: %i[create update]
 
-  # GET /clients/:external-id
   def show
-    if @client
-      render json: @client
-    else
-      head :not_found
-    end
+    render json: @client
   end
 
-  # POST /clients
   def create
-    @client = Client.new(permit_params.merge(external_id: SecureRandom.uuid))
+    @client = ClientActions.build_client(permit_params)
 
-    if @client.save
-      render json: @client, status: :created, location: @client
-    else
-      render json: @client.errors, status: :unprocessable_entity
-    end
+    @client.save!
+    render json: @client, status: :created, location: @client
   end
 
-  # PATCH/PUT /clients/:external_id
   def update
     if permit_params.empty?
       handle_errors
@@ -35,7 +25,6 @@ class ClientsController < ApplicationController
     end
   end
 
-  # DELETE /clients/:external_id
   def destroy
     @client.destroy
   end
@@ -43,7 +32,7 @@ class ClientsController < ApplicationController
   private
 
   def set_client
-    @client = Client.find_by(external_id: params[:external_id])
+    @client = Client.find_by!(external_id: params[:external_id])
   end
 
   def permit_params

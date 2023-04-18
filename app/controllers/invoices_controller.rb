@@ -14,12 +14,8 @@ class InvoicesController < ApplicationController
 
   def create
     invoice = InvoiceActions.build_invoice(permit_params, client)
-
-    if invoice.save
-      render json: invoice, status: :created
-    else
-      render json: invoice.errors, status: :unprocessable_entity
-    end
+    invoice.save!
+    render json: invoice, status: :created
   end
 
   def update
