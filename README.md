@@ -1,9 +1,14 @@
 # Factory Lander
 
 A small project to help a factoring lender. The lender uses invoices as collateral for loans.
-So when the borrower is paid, he pays the lender back. Some fees will be charged for the loan.
 
-Fees are accrued from the purchase date until the invoice is closed based on a percentage of the invoice amount.
+## How it works
+
+This project has a set of APIs to create and edit Clients and Invoices. A postman collection with the APIs can be found [here](Factory_Landing.postman_collection.json).
+
+After creating a Client and an Invoice, it is possible to use the **Change Invoice status** API. Every Invoice starts with the *created* status. This status can change based on what is defined in the [Invoice::NEXT_STATUS_MAP](app/models/invoice.rb) constant.
+
+When the Invoice status changes to *purchased*, a Purchase is generated. The Purchase amount is estimated based on the Invoice amount and the period between the *purchase* being created and the Invoice due date.
 
 ## Initialization
 
@@ -43,7 +48,6 @@ rubocop
 
 * Start application
 ```
-bundle install
 docker-compose up -d
 rails s
 ```
