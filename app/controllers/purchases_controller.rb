@@ -4,9 +4,9 @@ class PurchasesController < ApplicationController
   before_action :set_purchase, only: %i[show destroy]
 
   def index
-    purchase = invoice.purchase
+    purchases = invoice.purchases
 
-    render json: [purchase]
+    render json: purchases
   end
 
   def show

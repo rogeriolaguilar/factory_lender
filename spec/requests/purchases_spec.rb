@@ -20,10 +20,11 @@ RSpec.describe '/purchases', type: :request do
   end
 
   describe 'GET /show' do
-    it 'renders a successful response' do
-      get "/purchases/#{purchase.external_id}", as: :json
+    let(:invoice) { create(:invoice) }
+    it 'when invoice does not has purchases' do
+      get "/invoices/#{invoice.external_id}/purchases", as: :json
       expect(response).to be_successful
-      expect(parsed_body(response)).to eq(expected_purchase_body)
+      expect(parsed_body(response)).to eq([])
     end
   end
 

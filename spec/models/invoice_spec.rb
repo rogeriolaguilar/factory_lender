@@ -55,9 +55,10 @@ RSpec.describe Invoice, type: :model do
     end
   end
 
-  describe 'purchase' do
-    subject { build_stubbed(:invoice, purchase:) }
-    let(:purchase) { build_stubbed(:purchase) }
-    it { expect(subject.purchase).to be_instance_of(Purchase) }
+  describe 'purchases' do
+    describe 'invoice has purchases' do
+      subject { create(:purchase).invoice }
+      it { expect(subject.purchases.first).to be_instance_of(Purchase) }
+    end
   end
 end

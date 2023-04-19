@@ -128,7 +128,7 @@ RSpec.describe '/invoices', type: :request do
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including('application/json'))
         invoice.reload
-        expect(invoice.purchase).to be_present
+        expect(invoice.purchases).to be_present
       end
     end
 
