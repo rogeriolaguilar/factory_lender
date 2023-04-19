@@ -28,11 +28,23 @@ RSpec.describe '/purchases', type: :request do
   end
 
   describe 'DELETE /destroy' do
-    let(:purchase_url) { "/purchases/#{purchase.external_id}" }
-    it 'destroys the requested purchase' do
-      expect do
-        delete purchase_url, as: :json
-      end.to change(Purchase, :count).by(-1)
+    context 'destroys the requested purchase' do
+      let(:purchase_url) { "/purchases/#{purchase.external_id}" }
+      it do
+        expect do
+          delete purchase_url, as: :json
+        end.to change(Purchase, :count).by(-1)
+      end
+    end
+
+    context 'purchase do not exists' do
+      let(:purchase_url) { "/purchases/#{SecureRandom.uuid}" }
+      it do
+        expect do
+          delete purchase_url, as: :json
+        end.to change(Purchase, :count).by(0)
+        expect(response).to have_http_status(:not_found)
+      end
     end
   end
 end

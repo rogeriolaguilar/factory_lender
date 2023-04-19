@@ -20,14 +20,10 @@ class PurchasesController < ApplicationController
   private
 
   def invoice
-    @invoice ||= Invoice.find_by(external_id: params[:invoice_external_id])
+    @invoice ||= Invoice.find_by!(external_id: params[:invoice_external_id])
   end
 
   def set_purchase
-    @purchase = Purchase.find_by(external_id: params[:external_id])
-  end
-
-  def purchase_params
-    params.require(:purchase).permit(:amount)
+    @purchase = Purchase.find_by!(external_id: params[:external_id])
   end
 end

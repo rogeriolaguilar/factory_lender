@@ -48,7 +48,7 @@ class InvoicesController < ApplicationController
   end
 
   def set_invoice_by_client
-    @invoice = client.invoices.find_by(external_id: params[:external_id])
+    @invoice = client.invoices.find_by!(external_id: params[:external_id])
   end
 
   def invoice
@@ -56,6 +56,6 @@ class InvoicesController < ApplicationController
   end
 
   def permit_params
-    params.require(:invoice).permit(:amount, :due_date, :status)
+    params.permit(:amount, :due_date)
   end
 end

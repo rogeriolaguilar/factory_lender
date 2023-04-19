@@ -34,20 +34,19 @@ RSpec.describe '/invoices', type: :request do
 
   describe 'POST /create' do
     let(:create_attributes) do
-      { status: Invoice::STATUS_CREATED,
-        amount: 1000.0,
+      { amount: 1000.0,
         due_date: '2030-02-03T00:00:00.000Z' }
     end
 
     context 'with valid parameters' do
       it 'creates a new Invoice' do
         expect do
-          post "/clients/#{client_external_id}/invoices", params: { invoice: create_attributes }, as: :json
+          post "/clients/#{client_external_id}/invoices", params: create_attributes, as: :json
         end.to change(Invoice, :count).by(1)
       end
 
       it 'renders a JSON response with the new invoice' do
-        post "/clients/#{client_external_id}/invoices", params: { invoice: create_attributes }, as: :json
+        post "/clients/#{client_external_id}/invoices", params: create_attributes, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
         expect(parsed_body(response)).to include(create_attributes)
@@ -83,7 +82,7 @@ RSpec.describe '/invoices', type: :request do
 
       it 'updates the requested invoice' do
         patch url,
-              params: { invoice: new_attributes }, as: :json
+              params: new_attributes, as: :json
         invoice.reload
         expect(invoice.amount).to eq(new_attributes[:amount])
         expect(invoice.due_date).to eq(new_attributes[:due_date])
@@ -91,7 +90,7 @@ RSpec.describe '/invoices', type: :request do
 
       it 'renders a JSON response with the invoice' do
         patch url,
-              params: { invoice: new_attributes }, as: :json
+              params: new_attributes, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -101,7 +100,7 @@ RSpec.describe '/invoices', type: :request do
       it 'renders a JSON response with errors for the invoice' do
         invalid_attributes = { amount: '2020-12-12' }
         patch url,
-              params: { invoice: invalid_attributes }, as: :json
+              params: invalid_attributes, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -144,10 +143,28 @@ RSpec.describe '/invoices', type: :request do
   end
 
   describe 'DELETE /destroy' do
-    it 'destroys the requested invoice' do
+    it 'destroys the invoice' do
       expect do
         delete "/clients/#{client_external_id}/invoices/#{invoice.external_id}", as: :json
       end.to change(Invoice, :count).by(-1)
+
+      expect(response).to have_http_status(:no_content)
+    end
+
+    it 'return not found when invoice do not exists' do
+      expect do
+        delete "/clients/#{client_external_id}/invoices/#{SecureRandom.uuid}", as: :json
+      end.to change(Invoice, :count).by(0)
+
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'return not found when the client do not exists' do
+      expect do
+        delete "/clients/#{SecureRandom.uuid}/invoices/#{invoice.external_id}", as: :json
+      end.to change(Invoice, :count).by(0)
+
+      expect(response).to have_http_status(:not_found)
     end
   end
 end
