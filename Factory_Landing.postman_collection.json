@@ -1,0 +1,479 @@
+{
+	"info": {
+		"_postman_id": "65987b51-9e03-4b9e-9eb5-6ac63c7ecf4b",
+		"name": "Factory Landing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18862707",
+		"_collection_link": "https://solar-water-176997.postman.co/workspace/cxp-channels~2b9efc55-ba02-4599-8a6e-326ef0cda830/collection/18862707-65987b51-9e03-4b9e-9eb5-6ac63c7ecf4b?action=share&creator=18862707&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Create Client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Waren\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clients",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Client",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"Waren\" }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/clients",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"clients"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "strict-origin-when-cross-origin"
+								},
+								{
+									"key": "Location",
+									"value": "http://localhost:3000/clients/2"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1cbe4cbb6c13b0c86dc8bbbdfbe2a2b1\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "559f8fe6-fcfb-4754-9e54-4df8760b9d04"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.034352"
+								},
+								{
+									"key": "Server-Timing",
+									"value": "start_processing.action_controller;dur=0.48, sql.active_record;dur=13.62, render.active_model_serializers;dur=0.56, process_action.action_controller;dur=19.94"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"external_id\": \"26a4a6ec-a000-486e-a300-50fc4176e4e8\",\n    \"name\": \"Waren\",\n    \"created_at\": \"2023-04-19T01:43:57.165Z\",\n    \"updated_at\": \"2023-04-19T01:43:57.165Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Client",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clients/26a4a6ec-a000-486e-a300-50fc4176e4e8",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"26a4a6ec-a000-486e-a300-50fc4176e4e8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Client",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Renm\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clients/26a4a6ec-a000-486e-a300-50fc4176e4e8",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"26a4a6ec-a000-486e-a300-50fc4176e4e8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Client",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Ren\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clients/2f76f49e-1889-4f18-a847-6bed27872d5c",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"2f76f49e-1889-4f18-a847-6bed27872d5c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Invoice",
+			"item": [
+				{
+					"name": "Create Invoice",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 1000.2,\n    \"due_date\": \"2023-10-10T11:11:11Z\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clients/26a4a6ec-a000-486e-a300-50fc4176e4e8/invoices",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"26a4a6ec-a000-486e-a300-50fc4176e4e8",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Client Invoices",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clients/26a4a6ec-a000-486e-a300-50fc4176e4e8/invoices",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"26a4a6ec-a000-486e-a300-50fc4176e4e8",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invoice",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clients/26a4a6ec-a000-486e-a300-50fc4176e4e8/invoices/8517f0b1-4bf0-41a7-b3d0-d3ab770c9798",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"26a4a6ec-a000-486e-a300-50fc4176e4e8",
+								"invoices",
+								"8517f0b1-4bf0-41a7-b3d0-d3ab770c9798"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Invoice",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clients/26a4a6ec-a000-486e-a300-50fc4176e4e8/invoices/8517f0b1-4bf0-41a7-b3d0-d3ab770c9798",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"26a4a6ec-a000-486e-a300-50fc4176e4e8",
+								"invoices",
+								"8517f0b1-4bf0-41a7-b3d0-d3ab770c9798"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Invoice",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"amount\": 100.0 }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clients/26a4a6ec-a000-486e-a300-50fc4176e4e8/invoices/9c72128d-8e52-40ec-aff3-72f6f5da4b8e",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"26a4a6ec-a000-486e-a300-50fc4176e4e8",
+								"invoices",
+								"9c72128d-8e52-40ec-aff3-72f6f5da4b8e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Invoice status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"status\": \"approved\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/invoices/9c72128d-8e52-40ec-aff3-72f6f5da4b8e/change_status",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"invoices",
+								"9c72128d-8e52-40ec-aff3-72f6f5da4b8e",
+								"change_status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchase",
+			"item": [
+				{
+					"name": "Get Invoice Purchases",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 1000.2,\n    \"due_date\": \"2023-10-10T11:11:11Z\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/invoices/9c72128d-8e52-40ec-aff3-72f6f5da4b8e/purchases",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"invoices",
+								"9c72128d-8e52-40ec-aff3-72f6f5da4b8e",
+								"purchases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Purchase",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 1000.2,\n    \"due_date\": \"2023-10-10T11:11:11Z\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clients/26a4a6ec-a000-486e-a300-50fc4176e4e8/invoices/4eba7ea9-e4dd-4e7c-97de-6655434cbf4a",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"26a4a6ec-a000-486e-a300-50fc4176e4e8",
+								"invoices",
+								"4eba7ea9-e4dd-4e7c-97de-6655434cbf4a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
