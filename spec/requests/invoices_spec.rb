@@ -18,9 +18,10 @@ RSpec.describe '/invoices', type: :request do
       expect(parsed_body(response)).to eq([expected_invoice_body])
     end
 
-    it 'renders not found if client do not exists' do
+    it 'renders empty response if client do not exists' do
       get "/clients/#{SecureRandom.uuid}/invoices", as: :json
-      expect(response).to have_http_status(:not_found)
+      expect(response).to be_successful
+      expect(parsed_body(response)).to eq([])
     end
   end
 

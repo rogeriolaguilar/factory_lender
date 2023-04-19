@@ -23,4 +23,8 @@ class Invoice < ApplicationRecord
 
   belongs_to :client
   has_many :purchases
+
+  def self.by_client_external_id(client_external_id)
+    Invoice.joins(:client).where({ client: { external_id: client_external_id } })
+  end
 end

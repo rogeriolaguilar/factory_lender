@@ -4,7 +4,7 @@ class InvoicesController < ApplicationController
   before_action :set_invoice_by_client, only: %i[show update destroy]
 
   def index
-    invoices = client.invoices
+    invoices = Invoice.by_client_external_id(params[:client_external_id])
     render json: invoices
   end
 
@@ -49,7 +49,7 @@ class InvoicesController < ApplicationController
   end
 
   def set_invoice_by_client
-    @invoice = client.invoices.find_by!(external_id: params[:external_id])
+    @invoice = Invoice.by_client_external_id(params[:client_external_id]).find_by!(external_id: params[:external_id])
   end
 
   def invoice
