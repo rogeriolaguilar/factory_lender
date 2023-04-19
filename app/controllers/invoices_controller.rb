@@ -26,12 +26,13 @@ class InvoicesController < ApplicationController
 
   def change_status
     new_invoice = InvoiceActions.change_invoice_status(invoice, params[:status])
+    if new_invoice.status == Invoice::STATUS_PURCHASED
+      fee_strategy = Fees::DefaultFeeStrategy.new
+      purchase = PurchaseActions.build_purchase(new_invoice, fee_strategy)
+    end
 
     ActiveRecord::Base.transaction do
-      if new_invoice.status == Invoice::STATUS_CLOSED
-        purchase = PurchaseActions.build_purchase(new_invoice)
-        purchase.save!
-      end
+      purchase&.save!
       new_invoice.save!
     end
     render json: new_invoice
