@@ -270,14 +270,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/clients/26a4a6ec-a000-486e-a300-50fc4176e4e8/invoices",
+							"raw": "localhost:3000/clients/92744bd2-3b59-47ff-afdc-e24751ae546e/invoices",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"clients",
-								"26a4a6ec-a000-486e-a300-50fc4176e4e8",
+								"92744bd2-3b59-47ff-afdc-e24751ae546e",
 								"invoices"
 							]
 						}
@@ -302,7 +302,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/clients/26a4a6ec-a000-486e-a300-50fc4176e4e8/invoices/8517f0b1-4bf0-41a7-b3d0-d3ab770c9798",
+							"raw": "localhost:3000/clients/26a4a6ec-a000-486e-a300-50fc4176e4e8/invoices/b7e559d4-16ae-40c4-83de-710a6133c561",
 							"host": [
 								"localhost"
 							],
@@ -311,7 +311,7 @@
 								"clients",
 								"26a4a6ec-a000-486e-a300-50fc4176e4e8",
 								"invoices",
-								"8517f0b1-4bf0-41a7-b3d0-d3ab770c9798"
+								"b7e559d4-16ae-40c4-83de-710a6133c561"
 							]
 						}
 					},
