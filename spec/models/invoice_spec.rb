@@ -52,6 +52,16 @@ RSpec.describe Invoice, type: :model do
         subject.status = 'random'
         expect(subject).to be_invalid
       end
+
+      it 'is not valid without document_url' do
+        subject.document_url = nil
+        expect(subject).to be_invalid
+      end
+
+      it 'is not valid with invalid document_url' do
+        subject.document_url = 'Foo'
+        expect(subject).to be_invalid
+      end
     end
   end
 

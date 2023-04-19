@@ -35,7 +35,8 @@ RSpec.describe '/invoices', type: :request do
   describe 'POST /create' do
     let(:create_attributes) do
       { amount: 1000.0,
-        due_date: '2030-02-03T00:00:00.000Z' }
+        due_date: '2030-02-03T00:00:00.000Z',
+        document_url: 'http://example.com/document.pdf' }
     end
 
     context 'with valid parameters' do
@@ -77,7 +78,7 @@ RSpec.describe '/invoices', type: :request do
     let(:url) { "/clients/#{client_external_id}/invoices/#{invoice.external_id}" }
     context 'with valid parameters' do
       let(:new_attributes) do
-        { amount: 987.12, due_date: DateTime.tomorrow }
+        { amount: 987.12, due_date: DateTime.tomorrow, document_url: 'http://example.com/document.pdf' }
       end
 
       it 'updates the requested invoice' do

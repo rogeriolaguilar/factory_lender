@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_18_115309) do
     t.decimal "amount", null: false
     t.datetime "due_date", null: false
     t.string "status", null: false
+    t.string "document_url", null: false
     t.bigint "client_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

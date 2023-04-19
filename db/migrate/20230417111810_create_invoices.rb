@@ -7,6 +7,7 @@ class CreateInvoices < ActiveRecord::Migration[7.0]
       t.decimal :amount, null: false
       t.datetime :due_date, null: false
       t.string :status, null: false
+      t.string :document_url, null: false
       t.references :client, null: false, foreign_key: true
 
       t.timestamps

@@ -230,7 +230,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"amount\": 1000.2,\n    \"due_date\": \"2023-10-10T11:11:11Z\"\n }",
+							"raw": "{\n    \"amount\": 1000.2,\n    \"due_date\": \"2023-10-10T11:11:11Z\",\n    \"document_url\": \"http://example.com/invoice.pdf\"\n }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -238,14 +238,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/clients/26a4a6ec-a000-486e-a300-50fc4176e4e8/invoices",
+							"raw": "localhost:3000/clients/c92c5582-1c75-4eaf-b332-7d396c22b051/invoices",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"clients",
-								"26a4a6ec-a000-486e-a300-50fc4176e4e8",
+								"c92c5582-1c75-4eaf-b332-7d396c22b051",
 								"invoices"
 							]
 						}

@@ -16,9 +16,10 @@ class Invoice < ApplicationRecord
     Invoice::STATUS_REJECTED => []
   }.freeze
 
-  validates :status, :due_date, :amount, :client, :external_id, presence: true
+  validates :status, :due_date, :amount, :client, :external_id, :document_url, presence: true
   validates :status, inclusion: { in: STATUSES, message: '%<value> is not a valid status' }
   validates :amount, numericality: true
+  validates :document_url, format: { with: URI::DEFAULT_PARSER.make_regexp, message: 'must be a url' }
 
   belongs_to :client
   has_many :purchases

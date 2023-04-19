@@ -6,6 +6,7 @@ FactoryBot.define do
     amount { 10.1 }
     due_date { DateTime.tomorrow }
     status { Invoice::STATUS_CREATED }
+    document_url { 'http://example.com/test.png' }
     client
   end
 end

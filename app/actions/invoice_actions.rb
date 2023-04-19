@@ -6,6 +6,7 @@ module InvoiceActions
                   external_id: SecureRandom.uuid,
                   amount: params[:amount],
                   due_date: params[:due_date],
+                  document_url: params[:document_url],
                   client: })
   end
 

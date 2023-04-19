@@ -57,6 +57,6 @@ class InvoicesController < ApplicationController
   end
 
   def permit_params
-    params.permit(:amount, :due_date)
+    params.permit(:amount, :due_date, :document_url)
   end
 end
